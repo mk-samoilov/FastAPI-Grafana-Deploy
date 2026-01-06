@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
-from prometheus_client import Counter, Histogram, generate_latest
+from fastapi.responses import Response
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 
 import time
 
@@ -42,4 +43,4 @@ def root():
 
 @app.get("/metrics")
 def metrics():
-    return generate_latest()
+    return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
